@@ -19,7 +19,7 @@ export const urlGenrate = async (req, res) => {
       shortUrl: shortUrlGenrate,
       redirectUrl: originalUrl,
       title,
-      customUrl,
+
       userId: req.user.id
     })
     await newUrl.save()
@@ -51,58 +51,6 @@ export const handleDelete = async (req, res) => {
 
 
 const detector = new DeviceDetector();
-// export const handleRedirect = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     // Find the short URL data
-//     const urlData = await URL.findOne({ shortUrl: id });
-
-//     if (!urlData) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "Short URL not found FROM HANDLE REDIRECT",
-//       });
-//     }
-
-//     // Increment redirect count
-//     urlData.redirectCount += 1;
-
-//     // Extract IP address
-//     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-
-//     // Get geolocation data from IP
-//     const geo = geoip.lookup(ip);
-
-//     // Extract User-Agent and determine device type
-//     const userAgent = req.headers["user-agent"] || "Unknown";
-//     const deviceType = getDeviceType(userAgent);
-
-//     // Add access log to the database
-//     urlData.accessLogs.push({
-//       ip: ip || "Unknown",
-//       location: geo ? `${geo.city}, ${geo.country}` : "Unknown",
-//       timestamp: new Date(),
-
-//     });
-//     urlData.deviceType.push(deviceType);
-
-//     // Save the updated URL data
-//     await urlData.save();
-
-//     // Redirect the user
-//     return res.json({
-//       success: true,
-//       redirectUrl: urlData.redirectUrl,
-//     });
-//   } catch (error) {
-//     console.error("Error in redirect controller:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: "Server error in redirect controller",
-//     });
-//   }
-// };
 
 
 export const handleRedirect = async (req, res) => {
