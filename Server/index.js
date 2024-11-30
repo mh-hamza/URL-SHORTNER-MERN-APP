@@ -15,9 +15,9 @@ connectToMongoDB()
 // Middleware 
 app.use(cors())
 app.use(express.json())
-app.use(cors({
-  origin: 'https://url-shortner-mern-app-frontend.vercel.app/', // Allow only requests from your frontend
-}));
+// app.use(cors({
+//   origin: 'https://url-shortner-mern-app-frontend.vercel.app/', // Allow only requests from your frontend
+// }));
 
 //Routes
 app.use('/api/auth/', authRoutes)
