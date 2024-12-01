@@ -9,6 +9,6 @@ router.get('/verifyUser', middleware, verifyUser)
 
 export default router
 
-router.get('/', middleware, (req, res) => {
+router.get('/check', middleware, (req, res) => {
   res.send("hello from auth")
 })
