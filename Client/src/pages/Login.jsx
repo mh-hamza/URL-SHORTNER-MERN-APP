@@ -11,8 +11,7 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        // `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
-        "https://url-shortner-mern-app-server.vercel.app/api/auth/login",
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         { email, password }
       );
       if (response.data.success) {

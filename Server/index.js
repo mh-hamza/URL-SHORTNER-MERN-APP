@@ -13,7 +13,12 @@ const app = express()
 connectToMongoDB()
 
 // Middleware 
-app.use(cors())
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://url-shortner-mern-app-frontend.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json())
 // app.use(cors({
 //   origin: 'https://url-shortner-mern-app-frontend.vercel.app/', // Allow only requests from your frontend
