@@ -14,10 +14,15 @@ connectToMongoDB()
 
 // Middleware 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://url-shortner-mern-app-frontend.vercel.app'],
+  origin: ['http://localhost:5173', 'https://url-shortner-mern-app-frontend.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 
 app.use(express.json())
 // app.use(cors({
