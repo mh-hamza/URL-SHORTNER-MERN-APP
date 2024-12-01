@@ -5,10 +5,10 @@ const router = express.Router()
 
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.get('/verifyUser', middleware, verifyUser)
+router.get('/verifyUser', verifyUser) //middleware
 
 export default router
 
-router.get('/check', middleware, (req, res) => {
+router.get('/', middleware, (req, res) => {
   res.send("hello from auth")
 })
