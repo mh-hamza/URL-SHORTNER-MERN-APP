@@ -4,7 +4,7 @@ import connectToMongoDB from './db/db.js'
 import dotenv from 'dotenv'
 
 import authRoutes from './routes/auth.js'
-import urlRoutes from './routes/url.js'
+//import urlRoutes from './routes/url.js'
 dotenv.config()
 
 const app = express()
