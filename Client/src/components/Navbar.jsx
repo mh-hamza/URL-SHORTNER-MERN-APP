@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [profileSubdown, setProfileSubdown] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate(); // Used for navigation after logout
+
   const profileSubLinks = () => {
     setProfileSubdown(!profileSubdown);
   };
 
-  const { user } = useAuth();
+  const handleLogout = () => {
+    // Clear the token from localStorage
+    localStorage.removeItem("token");
+    
+    // Optionally, clear any user context or auth state if needed
+    // If you're using context to manage authentication, you can call a logout function here
+
+    // Redirect to the login page after logout
+    navigate("/login");
+  };
 
   return (
-    <nav
-      className={"bg-white md:text-sm border-b border-gray-400 "}>
-
+    <nav className={"bg-white md:text-sm border-b border-gray-400 "}>
       <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 flex justify-between">
         <div className="flex items-center justify-between py-5 md:block">
           <Link to="/">
@@ -27,13 +37,10 @@ function Navbar() {
         </div>
 
         {/* Main Navigation Items */}
-        <div
-          className="md:flex-1 items-center md:mt-0 md:flex"
-        >
+        <div className="md:flex-1 items-center md:mt-0 md:flex">
           {/* Conditional Rendering: Show Profile Dropdown and Search Bar */}
           {user ? (
             <div className="flex-1 gap-x-6 items-center justify-end space-y-6 md:flex md:space-y-0 md:mt-0">
-            
               <div className="relative">
                 <div className="flex gap-4 items-center ">
                   <button
@@ -73,7 +80,7 @@ function Navbar() {
                     <li>
                       <a
                         className="block text-red-600 font-bold lg:hover:bg-gray-50 p-2.5"
-                        href="#"
+                        onClick={handleLogout}
                       >
                         Log out
                       </a>
