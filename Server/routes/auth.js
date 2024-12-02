@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.get('/verifyUser', verifyUser) //middleware
+router.get('/verifyUser', middleware, verifyUser) //
 
 export default router
 

@@ -5,20 +5,16 @@ import { useAuth } from "../context/AuthContext";
 function Navbar() {
   const [profileSubdown, setProfileSubdown] = useState(false);
   const { user } = useAuth();
-  const navigate = useNavigate(); // Used for navigation after logout
+  const navigate = useNavigate(); 
 
   const profileSubLinks = () => {
     setProfileSubdown(!profileSubdown);
   };
 
   const handleLogout = () => {
-    // Clear the token from localStorage
-    localStorage.removeItem("token");
-    
-    // Optionally, clear any user context or auth state if needed
-    // If you're using context to manage authentication, you can call a logout function here
 
-    // Redirect to the login page after logout
+    localStorage.removeItem("token");
+    window.location.reload();
     navigate("/login");
   };
 
