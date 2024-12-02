@@ -25,16 +25,14 @@ app.use((err, req, res, next) => {
 });
 
 app.use(express.json())
-// app.use(cors({
-//   origin: 'https://url-shortner-mern-app-frontend.vercel.app/', // Allow only requests from your frontend
-// }));
+
 
 //Routes
 app.use('/api/auth/', authRoutes)
 // app.use('/api/url/', urlRoutes)
 
 app.get('/', (req, res) => {
-  res.send('Hello from index')
+  res.send('Hello from index' + process.env.PORT)
 })
 
 app.listen(process.env.PORT, () => {
