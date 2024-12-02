@@ -29,7 +29,7 @@ app.use(express.json())
 
 //Routes
 app.use('/api/auth/', authRoutes)
-app.use('/api/url/', urlRoutes)
+//app.use('/api/url/', urlRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello from index')
