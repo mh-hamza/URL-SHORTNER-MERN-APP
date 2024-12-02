@@ -32,7 +32,7 @@ app.use('/api/auth/', authRoutes)
 // app.use('/api/url/', urlRoutes)
 
 app.get('/', (req, res) => {
-  res.send('Hello from index' + process.env.PORT)
+  res.send('Hello from index' + process.env.PORT + "mongo uri" + process.env.MONGO_URI)
 })
 
 app.listen(process.env.PORT, () => {
