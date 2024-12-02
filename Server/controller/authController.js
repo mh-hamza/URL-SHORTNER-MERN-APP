@@ -31,31 +31,6 @@ export const registerUser = async (req, res) => {
   }
 }
 
-// export const loginUser = async (req, res) => {
-//   try {
-//     const { email, password } = req.body
-//     if (!email || !password) {
-//       return res.status(400).json({ success: false, message: "Email and Pssword are required" })
-//     }
-
-//     const existingUser = await USER.findOne({ email, email })
-//     if (!existingUser) {
-//       return res.status(400).json({ success: false, message: "User Not Registerd" })
-//     }
-//     // compare Password
-//     const verifyPassword = await bcrypt.compare(password, existingUser.password)
-
-//     if (!verifyPassword) {
-//       return res.status(400).json({ success: false, message: "Incorrect Password" })
-//     }
-//     const token = jwt.sign({ userId: existingUser._id, email: existingUser.email }, process.env.SECRET_KEY, { expiresIn: "1h" })
-
-//     return res.status(200).json({ success: true, token: token, message: "Login successful", userData: { name: existingUser.name, email: existingUser.email, } })
-
-//   } catch (error) {
-//     return res.status(500).json({ success: false, message: 'Error logging in', error });
-//   }
-// }
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -86,7 +61,6 @@ export const loginUser = async (req, res) => {
       userData: { name: existingUser.name, email: existingUser.email },
     });
   } catch (error) {
-    console.error("Error in loginUser:", error); // Log the error for debugging
     return res.status(500).json({ success: false, message: "Error logging in", error: error.message });
   }
 };
