@@ -17,6 +17,7 @@ function Home() {
       <h1>Home, {user.name}</h1>
       <div>
         {user.email}
+        <h1>Hello i am {user.name}</h1>
       </div>
       <h3><Link to="/dashboard">Dashboard</Link></h3>
     </div>
