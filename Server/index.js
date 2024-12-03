@@ -32,5 +32,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(process.env.PORT, () => {
-  console.log("Server Start Successfully")
+  console.log("Server Start Successfully on PORT " + process.env.PORT)
 })
