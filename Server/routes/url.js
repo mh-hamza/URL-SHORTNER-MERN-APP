@@ -9,8 +9,8 @@ const router = express.Router()
 // router.get('/redirect/:id', handleRedirect)
 // router.get('/fetchUrl', middleware, fetchAllUrl)
 // router.get('/details/:id', urlDetails)
-router.ger("/hello", (req, res) => {
-  res.send("Hello from Url Route")
+router.get('/', (req, res) => {
+  res.send("hello from Url")
 })
 
 export default router
