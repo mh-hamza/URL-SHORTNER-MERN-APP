@@ -114,11 +114,11 @@ function Dashboard() {
           <ListCard
           key={url._id}
             title={url.title}
-            qrValue={`http://localhost:5173/${url.shortUrl}`}
-            link={`http://localhost:5173/${url.shortUrl}`}
+            qrValue={`https://sensational-meringue-870b2f.netlify.app/${url.shortUrl}`}
+            link={`https://sensational-meringue-870b2f.netlify.app/${url.shortUrl}`}
             originalUrl={url.redirectUrl}
             createdAt={url.createdAt}
-            onCopy={() => handleCopy(`http://localhost:5173/${url.shortUrl}`)}
+            onCopy={() => handleCopy(`https://sensational-meringue-870b2f.netlify.app/${url.shortUrl}`)}
             onDelete={()=>handleDelete(url._id)}
             navigateLink={`/url/${url.shortUrl}`}
           />
