@@ -4,7 +4,8 @@ import connectToMongoDB from './db/db.js'
 import dotenv from 'dotenv'
 
 import authRoutes from './routes/auth.js'
-//import urlRoutes from './routes/url.js'
+import urlRoutes from './routes/url.js'
+
 dotenv.config()
 
 const app = express()
@@ -29,7 +30,7 @@ app.use(express.json())
 
 //Routes
 app.use('/api/auth/', authRoutes)
-//app.use('/api/url/', urlRoutes)
+app.use('/api/url/', urlRoutes)
 
 app.get('/', (req, res) => {
   res.send('Hello from index')
