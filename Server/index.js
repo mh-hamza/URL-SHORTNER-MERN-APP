@@ -15,7 +15,7 @@ connectToMongoDB()
 
 // Middleware 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://url-shortner-mern-app-frontend.vercel.app'],
+  origin: ['http://localhost:5173', 'https://sensational-meringue-870b2f.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
