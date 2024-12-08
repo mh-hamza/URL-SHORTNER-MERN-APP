@@ -25,7 +25,7 @@ export const urlGenrate = async (req, res) => {
     })
     await newUrl.save()
 
-    console.log(shortUrlGenrate)
+    // console.log(shortUrlGenrate)
     return res.status(200).json({ success: true, newUrl, message: "Url Genrated Successfully" })
   } catch (error) {
     return res.status(500).json({ success: false, message: "Error in Server url controller" })
@@ -45,87 +45,11 @@ export const handleDelete = async (req, res) => {
     // Send success response
     return res.status(200).json({ success: true, message: "URL deleted successfully" });
   } catch (error) {
-    console.error("Error deleting URL:", error);
+    // console.error("Error deleting URL:", error);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
-
-
-// export const handleRedirect = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     // Find the short URL data
-//     const urlData = await URL.findOne({ shortUrl: id });
-
-//     if (!urlData) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "Short URL not found",
-//       });
-//     }
-
-//     // Increment redirect count
-//     urlData.redirectCount += 1;
-
-//     // Extract IP address
-//     let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-
-//     // If multiple IPs are present, take the first one
-//     if (ip && ip.includes(',')) {
-//       ip = ip.split(',')[0].trim();
-//     }
-
-//     // Fetch geolocation data using ipapi.co
-//     let location = "Unknown";
-//     if (ip) {
-//       try {
-//         const response = await axios.get(`https://ipapi.co/${ip}/json/`, {
-//           headers: { 'User-Agent': 'nodejs-ipapi-v1.02' },
-//         });
-//         const { city, country_name } = response.data;
-//         location = city && country_name ? `${city}, ${country_name}` : "Unknown";
-//       } catch (geoError) {
-//         console.error("Error fetching location data from ipapi.co:", geoError.message);
-//       }
-//     }
-
-//     // Extract User-Agent and detect device type
-//     const userAgent = req.headers["user-agent"] || "Unknown";
-//     const deviceData = detector.detect(userAgent);
-//     const deviceType = deviceData.device.type || "desktop"; // Default to desktop if type is undefined
-//     console.log(deviceData)
-//     console.log(deviceType)
-//     // Update deviceType counts
-//     if (!urlData.deviceType) {
-//       urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0 };
-//     }
-//     urlData.deviceType[deviceType] = (urlData.deviceType[deviceType] || 0) + 1;
-
-//     // Add access log
-//     urlData.accessLogs.push({
-//       ip: ip || "Unknown",
-//       location: location,
-//       timestamp: new Date(),
-//     });
-
-//     // Save the updated URL data
-//     await urlData.save();
-
-//     // Redirect the user
-//     return res.json({
-//       success: true,
-//       redirectUrl: urlData.redirectUrl,
-//     });
-//   } catch (error) {
-//     console.error("Error in redirect controller:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: "Server error in redirect controller",
-//     });
-//   }
-// };
 
 export const handleRedirect = async (req, res) => {
   try {
@@ -167,14 +91,16 @@ export const handleRedirect = async (req, res) => {
     }
 
     // Extract User-Agent and detect device type
+
     const userAgent = req.headers["user-agent"] || "Unknown";
-    console.log("User-Agent:", userAgent); // Log User-Agent for debugging
+    // console.log("User-Agent:", userAgent); 
 
     const deviceData = detector.detect(userAgent);
-    console.log("Device Data:", deviceData); // Log raw device data
+
+    // console.log("Device Data:", deviceData); 
 
     const deviceType = deviceData.device.type || "unknown"; // Safeguard against undefined
-    console.log("Device Type Detected:", deviceType);
+    // console.log("Device Type Detected:", deviceType);
 
     // Update deviceType counts
     if (!urlData.deviceType) {
@@ -218,7 +144,7 @@ export const fetchAllUrl = async (req, res) => {
     }
     return res.status(200).json({ success: true, data: userUrls });
   } catch (error) {
-    console.error("Error fetching URLs:", error);
+    // console.error("Error fetching URLs:", error);
     return res.status(500).json({ success: false, message: "Server error while fetching URLs" });
   }
 }
