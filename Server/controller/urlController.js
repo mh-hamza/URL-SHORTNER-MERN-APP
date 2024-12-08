@@ -56,6 +56,77 @@ export const handleDelete = async (req, res) => {
 
 
 
+// export const handleRedirect = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+
+//     // Find the short URL data
+//     const urlData = await URL.findOne({ shortUrl: id });
+
+//     if (!urlData) {
+//       return res.status(404).json({
+//         success: false,
+//         message: "Short URL not found",
+//       });
+//     }
+
+//     // Increment redirect count
+//     urlData.redirectCount += 1;
+
+//     // Extract IP address
+//     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+//     // Fetch geolocation data using ipapi.co
+//     let location = "Unknown";
+//     if (ip) {
+//       try {
+//         const response = await axios.get(`https://ipapi.co/${ip}/json/`, {
+//           headers: { 'User-Agent': 'nodejs-ipapi-v1.02' },
+//         });
+//         const { city, country_name } = response.data;
+//         location = city && country_name ? `${city}, ${country_name}` : "Unknown";
+//       } catch (geoError) {
+//         console.error("Error fetching location data from ipapi.co:", geoError.message);
+//       }
+//     }
+
+//     // Extract User-Agent and detect device type
+//     const userAgent = req.headers["user-agent"] || "Unknown";
+//     const deviceData = detector.detect(userAgent);
+//     const deviceType = deviceData.device.type || "desktop"; // Default to desktop if type is undefined
+
+//     // Update deviceType counts
+//     if (!urlData.deviceType) {
+//       urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0 };
+//     }
+//     urlData.deviceType[deviceType] = (urlData.deviceType[deviceType] || 0) + 1;
+
+//     // Add access log
+//     urlData.accessLogs.push({
+//       ip: ip || "Unknown",
+//       location: location,
+//       timestamp: new Date(),
+//     });
+
+//     // Save the updated URL data
+//     await urlData.save();
+
+//     // Redirect the user
+//     return res.json({
+//       success: true,
+//       redirectUrl: urlData.redirectUrl,
+//     });
+//   } catch (error) {
+//     console.error("Error in redirect controller:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Server error in redirect controller",
+//     });
+//   }
+// };
+
+
+
 export const handleRedirect = async (req, res) => {
   try {
     const { id } = req.params;
@@ -74,7 +145,12 @@ export const handleRedirect = async (req, res) => {
     urlData.redirectCount += 1;
 
     // Extract IP address
-    const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+    let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+    // If multiple IPs are present, take the first one
+    if (ip && ip.includes(',')) {
+      ip = ip.split(',')[0].trim();
+    }
 
     // Fetch geolocation data using ipapi.co
     let location = "Unknown";
@@ -124,9 +200,6 @@ export const handleRedirect = async (req, res) => {
     });
   }
 };
-
-
-
 
 
 
