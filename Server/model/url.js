@@ -31,7 +31,7 @@ const urlSchema = new mongoose.Schema({
   },
   deviceType: {
     desktop: { type: Number, default: 0 },
-    mobile: { type: Number, default: 0 },
+    smartphone: { type: Number, default: 0 },
     tablet: { type: Number, default: 0 },
   },
   accessLogs: [

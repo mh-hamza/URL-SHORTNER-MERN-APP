@@ -178,7 +178,7 @@ export const handleRedirect = async (req, res) => {
 
     // Update deviceType counts
     if (!urlData.deviceType) {
-      urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0, unknown: 0 };
+      urlData.deviceType = { desktop: 0, smartphone: 0, tablet: 0, unknown: 0 };
     }
     urlData.deviceType[deviceType] = (urlData.deviceType[deviceType] || 0) + 1;
 
