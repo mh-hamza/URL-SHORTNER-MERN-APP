@@ -31,7 +31,7 @@ function QASection() {
     {
       question: "Is it free to use the URL shortener?",
       answer:
-        "Yes, our URL shortener is free to use for basic functionality. Premium features are available for advanced analytics and additional customization.",
+        "Yes, our URL shortener is free to use for basic functionality. Premium features are available for advanced analytics.",
     },
   ];
 
@@ -43,7 +43,7 @@ function QASection() {
           {questionsAndAnswers.map((item, index) => (
             <div
               key={index}
-              className="bg-white p-6 rounded-lg shadow-md cursor-pointer transform transition-transform duration-200 hover:shadow-lg"
+              className="bg-white p-4 m-2 rounded-lg shadow-md cursor-pointer transform transition-transform duration-200 hover:shadow-lg"
               onClick={() => toggleAnswer(index)}
             >
               <div className="flex items-center justify-between">

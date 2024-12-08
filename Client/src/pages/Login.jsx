@@ -35,7 +35,7 @@ function Login() {
   };
 
   return (
-    <main className="w-full mt-6 flex flex-col items-center justify-center px-4">
+    <main className="w-full mt-6 flex flex-col items-center justify-center px-4 pb-6">
       <div className="max-w-sm w-full text-gray-600 space-y-5">
         <div className="text-center pb-8">
           <img
@@ -98,7 +98,7 @@ function Login() {
             Sign in
           </button>
         </form>
-        <button className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
+        <button disabled className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 cursor-not-allowed">
           <svg
             className="w-5 h-5"
             viewBox="0 0 48 48"

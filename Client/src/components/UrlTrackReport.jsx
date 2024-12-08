@@ -4,12 +4,14 @@ import axios from "axios";
 import LocationChart from "./LocationChart";
 import DeviceChart from "./DeviceChart";
 import QRCode from "react-qr-code";
+import { useNavigate } from "react-router-dom";
 import {
   FaLink,
   FaMapMarkerAlt,
   FaMobileAlt,
   FaEye,
   FaChartBar,
+  FaArrowLeft 
 } from "react-icons/fa"; // Importing React Icons
 
 function UrlTrackReport() {
@@ -53,7 +55,11 @@ function UrlTrackReport() {
   useEffect(() => {
     fetchUrlDetails();
   }, [id]);
-
+ // Handle One step back 
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate(-1); 
+  };
   if (loading) {
     return <p className="text-center text-gray-600">Loading...</p>;
   }
@@ -68,6 +74,15 @@ function UrlTrackReport() {
   return (
     <div className="max-w-screen-xl mx-auto px-6 py-12 space-y-8">
       {/* Header Section */}
+      <div>
+      <button 
+      onClick={handleBack} 
+      className="bg-white text-black px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-200 focus:outline-none"
+    >
+      <FaArrowLeft className="text-black" /> {/* Arrow Icon */}
+      <span>Go Back</span>
+    </button>
+      </div>
       <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center justify-between">
         {/* QR Code Section */}
         <div className="flex justify-center md:w-1/3">

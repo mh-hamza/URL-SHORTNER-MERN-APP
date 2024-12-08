@@ -11,7 +11,7 @@ import "react-toastify/ReactToastify.css";
 import RedirectHandler from "./components/RedirectHandler.jsx";
 import UrlTrackReport from "./components/UrlTrackReport.jsx";
 import Footer from "./components/Footer.jsx";
-
+import ErrorPage from './pages/ErrorPage.jsx'
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +30,7 @@ function App() {
 
         
         <Route path="/:id" element={<RedirectHandler />} />
+        <Route path="/ErrorPage" element={<ErrorPage/>} />
       </Routes>
       <Footer/>
     </BrowserRouter>

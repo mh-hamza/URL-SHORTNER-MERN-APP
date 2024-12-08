@@ -11,7 +11,7 @@ function Footer() {
       </p>
       <div className="flex justify-center gap-4 mt-2">
         <a
-          href="https://github.com/mh-hamza/TASK-MANAGER"
+          href="https://github.com/mh-hamza/URL-SHORTNER-MERN-APP"
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-600 transition-colors duration-300 hover:text-blue-600"

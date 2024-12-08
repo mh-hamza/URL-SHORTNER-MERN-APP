@@ -30,7 +30,7 @@ function Register() {
   };
 
   return (
-    <main className="w-full mt-6 flex flex-col items-center justify-center bg-gray-50 sm:px-4">
+    <main className="w-full mt-6 flex flex-col items-center justify-center bg-gray-50 sm:px-4 pb-6">
       <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
         <div className="text-center">
         <img
@@ -91,7 +91,7 @@ function Register() {
             </button>
           </form>
           <div className="mt-5">
-            <button className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
+            <button disabled className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 cursor-not-allowed">
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 48 48"

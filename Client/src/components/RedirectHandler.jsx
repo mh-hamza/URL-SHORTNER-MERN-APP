@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ClipLoader } from "react-spinners"; 
+import logo from "../assets/logo.jpeg";
 
 const RedirectHandler = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchRedirectUrl = async () => {
@@ -16,14 +19,17 @@ const RedirectHandler = () => {
         if (response.data.success) {
           const { redirectUrl } = response.data;
           
-          window.location.href = redirectUrl;
+          setLoading(false); 
+          window.location.href = redirectUrl; 
         } else {
           console.error("Short URL not found");
-          navigate("/not-found"); 
+          setLoading(false); 
+          navigate("/not-found");
         }
       } catch (error) {
         console.error("Error fetching URL:", error);
-        navigate("/not-found"); 
+        setLoading(false); 
+        navigate("/ErrorPage");
       }
     };
 
@@ -31,8 +37,17 @@ const RedirectHandler = () => {
   }, [id, navigate]);
 
   return (
-    <div>
-      <p>Redirecting...</p>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      {loading ? (
+        <div className="flex flex-col items-center">
+          {/* Logo and Loading Spinner */}
+          <img src={logo} alt="Logo" className="mb-4 w-32" />
+          <ClipLoader size={50} color="#00bcd4" loading={loading} />
+          <p className="text-lg mt-4 text-gray-600">Please wait while we redirect you...</p>
+        </div>
+      ) : (
+        <p className="text-lg text-gray-700">Redirecting...</p>
+      )}
     </div>
   );
 };
