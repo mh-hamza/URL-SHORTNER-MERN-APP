@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
-
+import About from '../pages/About.jsx'
+import Hero from '../components/Hero.jsx'
+import QASection from '../components/QASection.jsx'
 
 function Home() {
-  const { user } = useAuth()
-
-
-  
-  if (!user) {
-    return <div>Loading...</div> 
-  }
-
   return (
+   <>
     <div>
-      <h1>Home, {user.name}</h1>
-      <div>
-        {user.email}
-        <h1>Hello i am {user.name}</h1>
-      </div>
-      <h3><Link to="/dashboard">Dashboard</Link></h3>
+      <Hero/>
     </div>
+    <div>
+      <About/>
+    </div>
+    <div>
+      <QASection/>
+    </div>
+   </>
   )
 }
 

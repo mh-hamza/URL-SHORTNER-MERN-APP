@@ -44,7 +44,7 @@ function Dashboard() {
     navigator.clipboard
       .writeText(link)
       .then(() => {
-        console.log("Link copied to clipboard!");
+        alert("Link copied successfully!");
       })
       .catch((err) => {
         console.error("Failed to copy the link: ", err);
@@ -114,11 +114,11 @@ function Dashboard() {
           <ListCard
           key={url._id}
             title={url.title}
-            qrValue={`https://sensational-meringue-870b2f.netlify.app/${url.shortUrl}`}
-            link={`https://sensational-meringue-870b2f.netlify.app/${url.shortUrl}`}
+            qrValue={`https://mh-shrink.netlify.app/${url.shortUrl}`}
+            link={`https://mh-shrink.netlify.app/${url.shortUrl}`}
             originalUrl={url.redirectUrl}
             createdAt={url.createdAt}
-            onCopy={() => handleCopy(`https://sensational-meringue-870b2f.netlify.app/${url.shortUrl}`)}
+            onCopy={() => handleCopy(`https://mh-shrink.netlify.app/${url.shortUrl}`)}
             onDelete={()=>handleDelete(url._id)}
             navigateLink={`/url/${url.shortUrl}`}
           />

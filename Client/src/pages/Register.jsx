@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 import { toast } from "react-toastify";
+import logoImg from '../assets/logo.jpeg'
+
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,10 +33,11 @@ function Register() {
     <main className="w-full mt-6 flex flex-col items-center justify-center bg-gray-50 sm:px-4">
       <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
         <div className="text-center">
-          <img
-            src="https://floatui.com/logo.svg"
-            width={150}
+        <img
+            src={logoImg}
+            width={200}
             className="mx-auto"
+            alt="Logo"
           />
           <div className="mt-5 space-y-2">
             <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">

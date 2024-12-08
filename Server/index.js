@@ -15,7 +15,7 @@ connectToMongoDB()
 
 // Middleware 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://sensational-meringue-870b2f.netlify.app'],
+  origin: ['http://localhost:5173', 'https://mh-shrink.netlify.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import logoImg from '../assets/logo.jpeg'
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -38,9 +39,10 @@ function Login() {
       <div className="max-w-sm w-full text-gray-600 space-y-5">
         <div className="text-center pb-8">
           <img
-            src="https://floatui.com/logo.svg"
-            width={150}
+            src={logoImg}
+            width={200}
             className="mx-auto"
+            alt="Logo"
           />
           <div className="mt-5">
             <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">

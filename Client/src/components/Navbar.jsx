@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import logoImg from "../assets/logo.jpeg"
 function Navbar() {
   const [profileSubdown, setProfileSubdown] = useState(false);
   const { user } = useAuth();
@@ -20,14 +20,13 @@ function Navbar() {
 
   return (
     <nav className={"bg-white md:text-sm border-b border-gray-400 "}>
-      <div className="gap-x-14 items-center max-w-screen-xl mx-auto px-4 flex justify-between">
-        <div className="flex items-center justify-between py-5 md:block">
+      <div className=" items-center max-w-screen-xl mx-auto px-4 flex justify-between py-2">
+        <div className="flex items-center justify-between md:block">
           <Link to="/">
             <img
-              src="https://www.floatui.com/logo.svg"
-              width={120}
-              height={50}
-              alt="Float UI logo"
+              src={logoImg}
+             width={200}
+              alt="Logo Image"
             />
           </Link>
         </div>
@@ -56,7 +55,7 @@ function Navbar() {
                   </div>
                 </div>
                 {profileSubdown ? (
-                  <ul className="bg-white top-12 right-0 mt-5 absolute border rounded-md lg:text-sm lg:w-52 shadow-md lg:space-y-0 lg:mt-0">
+                  <ul className="bg-white top-12 right-0 mt-5 absolute border rounded-md lg:text-sm lg:w-52 shadow-md lg:space-y-0 lg:mt-0 z-30">
                     <li>
                       <a
                         className="block text-gray-600 lg:hover:bg-gray-50 p-2.5"
@@ -74,8 +73,17 @@ function Navbar() {
                       </a>
                     </li>
                     <li>
+                      <Link
+                        className="block text-blue-600 font-bold lg:hover:bg-gray-50 p-2.5 cursor-pointer"
+                        to="/dashboard"
+                        onClick={()=>setProfileSubdown(false)}
+                      >
+                        My Links
+                      </Link>
+                    </li>
+                    <li>
                       <a
-                        className="block text-red-600 font-bold lg:hover:bg-gray-50 p-2.5"
+                        className="block text-red-600 font-bold lg:hover:bg-gray-50 p-2.5 cursor-pointer"
                         onClick={handleLogout}
                       >
                         Log out
@@ -87,7 +95,7 @@ function Navbar() {
             </div>
           ) : (
             // Login/Register Buttons
-            <div className="flex-1 gap-x-6 items-center justify-end mt-6 flex md:space-y-0 md:mt-0">
+            <div className="flex-1 gap-x-6 items-center justify-end flex md:space-y-0">
               <Link
                 to="/register"
                 className="block text-gray-700 hover:text-gray-900"

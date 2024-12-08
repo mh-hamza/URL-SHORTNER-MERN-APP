@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import RedirectHandler from "./components/RedirectHandler.jsx";
 import UrlTrackReport from "./components/UrlTrackReport.jsx";
+import Footer from "./components/Footer.jsx";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         
         <Route path="/:id" element={<RedirectHandler />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
