@@ -1,8 +1,5 @@
 import { nanoid } from "nanoid"
 import URL from '../model/url.js'
-// import geoip from 'geoip-lite';
-// import DeviceDetector from "node-device-detector";
-
 import axios from 'axios'
 import DeviceDetector from 'node-device-detector'
 const detector = new DeviceDetector();
@@ -55,7 +52,6 @@ export const handleDelete = async (req, res) => {
 
 
 
-
 // export const handleRedirect = async (req, res) => {
 //   try {
 //     const { id } = req.params;
@@ -74,7 +70,12 @@ export const handleDelete = async (req, res) => {
 //     urlData.redirectCount += 1;
 
 //     // Extract IP address
-//     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+//     let ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+//     // If multiple IPs are present, take the first one
+//     if (ip && ip.includes(',')) {
+//       ip = ip.split(',')[0].trim();
+//     }
 
 //     // Fetch geolocation data using ipapi.co
 //     let location = "Unknown";
@@ -94,7 +95,8 @@ export const handleDelete = async (req, res) => {
 //     const userAgent = req.headers["user-agent"] || "Unknown";
 //     const deviceData = detector.detect(userAgent);
 //     const deviceType = deviceData.device.type || "desktop"; // Default to desktop if type is undefined
-
+//     console.log(deviceData)
+//     console.log(deviceType)
 //     // Update deviceType counts
 //     if (!urlData.deviceType) {
 //       urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0 };
@@ -124,8 +126,6 @@ export const handleDelete = async (req, res) => {
 //     });
 //   }
 // };
-
-
 
 export const handleRedirect = async (req, res) => {
   try {
@@ -168,12 +168,17 @@ export const handleRedirect = async (req, res) => {
 
     // Extract User-Agent and detect device type
     const userAgent = req.headers["user-agent"] || "Unknown";
+    console.log("User-Agent:", userAgent); // Log User-Agent for debugging
+
     const deviceData = detector.detect(userAgent);
-    const deviceType = deviceData.device.type || "desktop"; // Default to desktop if type is undefined
+    console.log("Device Data:", deviceData); // Log raw device data
+
+    const deviceType = deviceData.device.type || "unknown"; // Safeguard against undefined
+    console.log("Device Type Detected:", deviceType);
 
     // Update deviceType counts
     if (!urlData.deviceType) {
-      urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0 };
+      urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0, unknown: 0 };
     }
     urlData.deviceType[deviceType] = (urlData.deviceType[deviceType] || 0) + 1;
 
@@ -182,6 +187,7 @@ export const handleRedirect = async (req, res) => {
       ip: ip || "Unknown",
       location: location,
       timestamp: new Date(),
+      userAgent, // Log raw User-Agent for further analysis
     });
 
     // Save the updated URL data
@@ -200,77 +206,6 @@ export const handleRedirect = async (req, res) => {
     });
   }
 };
-
-
-
-
-
-// const detector = new DeviceDetector();
-
-
-// export const handleRedirect = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     // Find the short URL data
-//     const urlData = await URL.findOne({ shortUrl: id });
-
-//     if (!urlData) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "Short URL not found",
-//       });
-//     }
-
-//     // Increment redirect count
-//     urlData.redirectCount += 1;
-
-//     // Extract IP address
-//     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
-
-//     // Get geolocation data from IP
-//     const geo = geoip.lookup(ip);
-
-//     // Extract User-Agent and detect device type
-//     const userAgent = req.headers["user-agent"] || "Unknown";
-//     const deviceData = detector.detect(userAgent);
-//     const deviceType = deviceData.device.type || "desktop"; // Default to desktop if type is undefined
-
-//     // Update deviceType counts
-//     if (!urlData.deviceType) {
-//       urlData.deviceType = { desktop: 0, mobile: 0, tablet: 0 };
-//     }
-//     urlData.deviceType[deviceType] = (urlData.deviceType[deviceType] || 0) + 1;
-
-//     // Add access log
-//     urlData.accessLogs.push({
-//       ip: ip || "Unknown",
-//       location: geo ? `${geo.city}, ${geo.country}` : "Unknown",
-//       timestamp: new Date(),
-//     });
-
-//     // Save the updated URL data
-//     await urlData.save();
-
-//     // Redirect the user
-//     return res.json({
-//       success: true,
-//       redirectUrl: urlData.redirectUrl,
-//     });
-//   } catch (error) {
-//     console.error("Error in redirect controller:", error);
-//     return res.status(500).json({
-//       success: false,
-//       message: "Server error in redirect controller",
-//     });
-//   }
-// };
-
-
-
-
-
-
 
 
 export const fetchAllUrl = async (req, res) => {
