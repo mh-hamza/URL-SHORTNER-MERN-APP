@@ -1,35 +1,39 @@
-# URL Shortener with Analytics
+# URL Shortener MERN App
 
-A powerful URL shortener tool that allows you to create short links, track clicks, and analyze real-time data, such as the number of clicks, device types, locations, and more. This project leverages React, Tailwind CSS, and other technologies to create a seamless user experience.
+A powerful URL shortener application built using the MERN stack (MongoDB, Express, React, Node.js). This application allows users to create shortened URLs, track clicks, and analyze real-time data, such as location, device type, and more. 
+
+This project demonstrates how to build a full-stack application with a React frontend and a Node.js backend.
 
 ## Features
 
-- Create short URLs with ease
-- Track click analytics such as location, device type, and time
-- Customizable short URLs
-- Real-time analytics dashboard
-- Easy-to-use interface with responsive design
-- Fully open-source and free to use
+- **URL Shortening**: Create short URLs from long ones for easy sharing.
+- **Click Tracking**: Track clicks on shortened URLs and analyze user location, device type, and other data.
+- **Customizable Links**: Option to create custom short URLs.
+- **Analytics Dashboard**: View real-time analytics on URL performance.
+- **Responsive Design**: Works on all device types (desktop, tablet, mobile).
+- **JWT Authentication**: Secure login for users.
 
 ## Tech Stack
 
 - **Frontend**: React, Tailwind CSS
-- **Backend**: Node.js, Express
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens)
-- **Hosting**: Netlify, Heroku
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB (for storing URLs and analytics)
+- **Authentication**: JWT (JSON Web Token)
+- **Hosting**: Netlify (Frontend), Heroku (Backend)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v12 or higher)
-- MongoDB instance (local or cloud-based)
+To run this project locally, ensure you have the following software installed:
+
+- **Node.js** (v12 or higher)
+- **MongoDB** (you can use a cloud service like MongoDB Atlas or run it locally)
 
 ### Installation
 
-1. Clone the repository:
+1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/mh-hamza/url-shortener.git
-   cd url-shortener
+   git clone https://github.com/mh-hamza/URL-SHORTNER-MERN-APP.git
+   cd URL-SHORTNER-MERN-APP
