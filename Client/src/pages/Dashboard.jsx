@@ -93,7 +93,7 @@ function Dashboard() {
       </div>
       <div className="max-w-screen-xl mx-auto flex justify-between px-4 py-5">
         <h1 className="font-bold text-2xl">My Links</h1>
-        <UrlContainer />
+        <UrlContainer onUrlAdded={handleFetchAllUrl} />
       </div>
       <div className="max-w-screen-xl mx-auto flex justify-between px-4 py-5">
         <div className="w-full bg-gray-100 py-5">

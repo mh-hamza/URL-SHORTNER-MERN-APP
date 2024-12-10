@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const UrlContainer = () => {
+const UrlContainer = ({ onUrlAdded }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -30,6 +30,10 @@ const UrlContainer = () => {
         console.log(response);
         toast.success(response.data.message);
         setIsPopupOpen(false)
+      }
+      // for Real time update
+      if (onUrlAdded) {
+        onUrlAdded();
       }
     } catch (error) {
       if (error.response && error.response.data) {
