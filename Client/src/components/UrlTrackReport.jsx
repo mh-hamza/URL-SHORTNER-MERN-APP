@@ -11,7 +11,7 @@ import {
   FaMobileAlt,
   FaEye,
   FaChartBar,
-  FaArrowLeft 
+  FaArrowLeft,
 } from "react-icons/fa"; // Importing React Icons
 
 function UrlTrackReport() {
@@ -55,10 +55,10 @@ function UrlTrackReport() {
   useEffect(() => {
     fetchUrlDetails();
   }, [id]);
- // Handle One step back 
+  // Handle One step back
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate(-1); 
+    navigate(-1);
   };
   if (loading) {
     return <p className="text-center text-gray-600">Loading...</p>;
@@ -75,13 +75,13 @@ function UrlTrackReport() {
     <div className="max-w-screen-xl mx-auto px-6 py-12 space-y-8">
       {/* Header Section */}
       <div>
-      <button 
-      onClick={handleBack} 
-      className="bg-white text-black px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-200 focus:outline-none"
-    >
-      <FaArrowLeft className="text-black" /> {/* Arrow Icon */}
-      <span>Go Back</span>
-    </button>
+        <button
+          onClick={handleBack}
+          className="bg-white text-black px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-200 focus:outline-none"
+        >
+          <FaArrowLeft className="text-black" />
+          <span>Go Back</span>
+        </button>
       </div>
       <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center justify-between">
         {/* QR Code Section */}
@@ -100,15 +100,17 @@ function UrlTrackReport() {
           </h2>
           <p className="text-gray-700 mb-2">
             <strong className="text-gray-900">Short URL: </strong>{" "}
-            {urlData.shortUrl}
+            <span className="font-semibold text-gray-500">https://mh-shrink.netlify.app/{urlData.shortUrl}</span>
           </p>
           <p className="text-gray-700 mb-2">
             <strong className="text-gray-900">Original URL: </strong>{" "}
-            {urlData.redirectUrl}
+            <span className="font-semibold text-gray-500">{urlData.redirectUrl}</span>
           </p>
           <p className="text-gray-700 mb-2 flex items-center">
             <strong className="text-gray-900">Total Clicks: </strong>{" "}
-            {urlData.redirectCount}
+            <span className="font-bold text-blue-500 ml-2">
+              {"  "} {urlData.redirectCount}
+            </span>
             <FaEye className="ml-2 text-gray-500" />
           </p>
         </div>

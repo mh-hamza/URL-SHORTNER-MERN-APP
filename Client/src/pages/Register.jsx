@@ -1,25 +1,34 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import { toast } from "react-toastify";
-import logoImg from '../assets/logo.jpeg'
+import logoImg from "../assets/logo.jpeg";
+import { ClipLoader } from "react-spinners";
+
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/auth/register`, {name, email, password})
-      if(response.data.success){
-        console.log(response)
-        toast.success(response.data.message)
-        navigate('/login')
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/auth/register`,
+        { name, email, password }
+      );
+      setIsLoading(false);
+      if (response.data.success) {
+        console.log(response);
+        toast.success(response.data.message);
+        navigate("/login");
       }
     } catch (error) {
+      setIsLoading(false);
       if (error.response && error.response.data) {
         toast.error(error.response.data.message || "Something went wrong!");
       } else {
@@ -33,12 +42,7 @@ function Register() {
     <main className="w-full mt-6 flex flex-col items-center justify-center bg-gray-50 sm:px-4 pb-6">
       <div className="w-full space-y-6 text-gray-600 sm:max-w-md">
         <div className="text-center">
-        <img
-            src={logoImg}
-            width={200}
-            className="mx-auto"
-            alt="Logo"
-          />
+          <img src={logoImg} width={200} className="mx-auto" alt="Logo" />
           <div className="mt-5 space-y-2">
             <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
               Create an account
@@ -61,7 +65,7 @@ function Register() {
               <input
                 type="text"
                 value={name}
-                onChange={(e)=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -71,7 +75,7 @@ function Register() {
               <input
                 type="email"
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
@@ -82,16 +86,26 @@ function Register() {
                 type="password"
                 required
                 value={password}
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
               />
             </div>
-            <button type="submit" className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-              Create account
+            <button
+              type="submit"
+              className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+            >
+              {isLoading ? (
+                <ClipLoader size={15} color="#fff" />
+              ) : (
+                "Create account"
+              )}
             </button>
           </form>
           <div className="mt-5">
-            <button disabled className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 cursor-not-allowed">
+            <button
+              disabled
+              className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 cursor-not-allowed"
+            >
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 48 48"

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -12,12 +13,12 @@ function Hero() {
           <p className="text-lg sm:text-xl mb-8 opacity-80">
             Create short links, track clicks, analyze device types, and more in real-time.
           </p>
-          <a
-            href="#"
+          <Link
+            to="/login"
             className="px-6 py-3 text-lg bg-white text-blue-500 rounded-lg hover:bg-blue-100 transition-all duration-300"
           >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
       <svg

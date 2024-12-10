@@ -4,10 +4,13 @@ import { FaSearch } from "react-icons/fa";
 import { toast } from "react-toastify";
 import axios from "axios";
 import ListCard from "../components/ListCard.jsx";
-function Dashboard() {
+import { ClipLoader } from "react-spinners";
 
+function Dashboard() {
   const [allUrls, setAllUrls] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const handleFetchAllUrl = async () => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
 
@@ -15,7 +18,7 @@ function Dashboard() {
         console.log("No token found");
         return;
       }
-
+     
       const response = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/api/url/fetchUrl`,
         {
@@ -24,7 +27,7 @@ function Dashboard() {
           },
         }
       );
-
+      setIsLoading(false);
       // Check if the response is successful
       if (response.data.success) {
         console.log("Fetched URLs:", response.data.data);
@@ -33,6 +36,7 @@ function Dashboard() {
         console.log("Failed to fetch URLs:", response.data.message);
       }
     } catch (error) {
+      setIsLoading(false);
       console.error("Error fetching URLs:", error);
     }
   };
@@ -58,7 +62,7 @@ function Dashboard() {
         console.log("No token found");
         return;
       }
-  
+
       const response = await axios.delete(
         `${import.meta.env.VITE_SERVER_URL}/api/url/delete/${id}`,
         {
@@ -67,7 +71,7 @@ function Dashboard() {
           },
         }
       );
-  
+
       if (response.data.success) {
         setAllUrls((prevUrls) => prevUrls.filter((url) => url._id !== id));
         toast.success("URL deleted successfully");
@@ -110,19 +114,23 @@ function Dashboard() {
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto flex flex-col justify-between px-4 py-5">
-        {allUrls.map((url) => (
-          <ListCard
-          key={url._id}
-            title={url.title}
-            qrValue={`https://mh-shrink.netlify.app/${url.shortUrl}`}
-            link={`https://mh-shrink.netlify.app/${url.shortUrl}`}
-            originalUrl={url.redirectUrl}
-            createdAt={url.createdAt}
-            onCopy={() => handleCopy(`https://mh-shrink.netlify.app/${url.shortUrl}`)}
-            onDelete={()=>handleDelete(url._id)}
-            navigateLink={`/url/${url.shortUrl}`}
-          />
-        ))}
+        {isLoading
+          ? "Loading..."  
+          : allUrls.map((url) => (
+              <ListCard
+                key={url._id}
+                title={url.title}
+                qrValue={`https://mh-shrink.netlify.app/${url.shortUrl}`}
+                link={`https://mh-shrink.netlify.app/${url.shortUrl}`}
+                originalUrl={url.redirectUrl}
+                createdAt={url.createdAt}
+                onCopy={() =>
+                  handleCopy(`https://mh-shrink.netlify.app/${url.shortUrl}`)
+                }
+                onDelete={() => handleDelete(url._id)}
+                navigateLink={`/url/${url.shortUrl}`}
+              />
+            ))}
       </div>
     </div>
   );

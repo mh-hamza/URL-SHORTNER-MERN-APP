@@ -8,19 +8,19 @@ import { ClipLoader } from "react-spinners";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Start the spinner
+    setIsLoading(true); 
 
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         { email, password }
       );
-      setIsLoading(false); // Stop the spinner
+      setIsLoading(false); 
       if (response.data.success) {
         toast.success(response.data.message);
         localStorage.setItem("token", response.data.token);
@@ -32,7 +32,7 @@ function Login() {
         window.location.reload();
       }
     } catch (error) {
-      setIsLoading(false); // Stop the spinner on error
+      setIsLoading(false); 
       if (error.response && error.response.data) {
         toast.error(error.response.data.message || "Something went wrong!");
       } else {

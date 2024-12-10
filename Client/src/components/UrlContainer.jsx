@@ -14,22 +14,22 @@ const UrlContainer = ({ onUrlAdded }) => {
 
   const token = localStorage.getItem("token");
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/url/addUrl`,
-        { originalUrl, title, customUrl},{
+        { originalUrl, title, customUrl },
+        {
           headers: {
-            Authorization: `Bearer ${token}`, 
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       if (response.data.success) {
         console.log(response);
         toast.success(response.data.message);
-        setIsPopupOpen(false)
+        setIsPopupOpen(false);
       }
       // for Real time update
       if (onUrlAdded) {
@@ -44,6 +44,7 @@ const UrlContainer = ({ onUrlAdded }) => {
       console.log(error);
     }
   };
+
   return (
     <div>
       <button
@@ -56,7 +57,7 @@ const UrlContainer = ({ onUrlAdded }) => {
       {isPopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
           <form onSubmit={handleSubmit}>
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+            <div className=" max-w-lg md:max-w-xl w-full p-6 bg-white rounded-lg shadow-lg transform -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2">
               <h2 className="text-xl font-semibold mb-4 text-gray-700">
                 Create Short Link
               </h2>
@@ -72,7 +73,7 @@ const UrlContainer = ({ onUrlAdded }) => {
                   type="text"
                   id="short-link-title"
                   value={title}
-                  onChange={(e)=>setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="Enter a title"
                   className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                 />
@@ -83,15 +84,12 @@ const UrlContainer = ({ onUrlAdded }) => {
                   Enter a Long URL
                 </label>
                 <div className="flex items-center text-gray-400 border rounded-md">
-                  <div className="px-3 py-2 rounded-l-md bg-gray-50 border-r">
-                    https://
-                  </div>
                   <input
                     type="URL"
                     id="long-url"
                     value={originalUrl}
-                    onChange={(e)=>setOriginalUrl(e.target.value)}
-                    placeholder="www.example.com"
+                    onChange={(e) => setOriginalUrl(e.target.value)}
+                    placeholder="http://www.example.com"
                     className="w-full p-2 bg-transparent outline-none"
                   />
                 </div>
@@ -107,7 +105,7 @@ const UrlContainer = ({ onUrlAdded }) => {
                 <input
                   type="text"
                   value={customUrl}
-                  onChange={(e)=>setCustomUrl(e.target.value)}
+                  onChange={(e) => setCustomUrl(e.target.value)}
                   id="custom-url"
                   placeholder="Enter a custom URL"
                   className="w-full p-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"

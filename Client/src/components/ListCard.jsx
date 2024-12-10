@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const ListCard = ({ title, qrValue, link, originalUrl, createdAt, onCopy, onDelete, navigateLink }) => {
   // Extract date and time from the createdAt field
-  const date = new Date(createdAt).toLocaleDateString(); // e.g., "11/19/2024"
+  const date = new Date(createdAt).toLocaleDateString(); 
   const time = new Date(createdAt).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -14,14 +14,14 @@ const ListCard = ({ title, qrValue, link, originalUrl, createdAt, onCopy, onDele
   return (
     <div className="bg-white shadow-md rounded-md p-4 mb-4 w-full">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Wrap QR Code and Content Section with Link */}
+       
         <Link to={navigateLink}className="flex flex-col md:flex-row flex-1 gap-4 cursor-pointer">
-          {/* QR Code */}
+        {/* QR CODE */}
           <div className="flex justify-center md:justify-start">
             <QRCode fgColor={"#222222"} size={90} value={qrValue} className="text-gray-600" />
           </div>
 
-          {/* Content Section */}
+       
           <div className="flex-1 flex flex-col gap-1 text-center md:text-left">
             <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
             <p
