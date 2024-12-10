@@ -2,29 +2,37 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import logoImg from '../assets/logo.jpeg'
+import logoImg from "../assets/logo.jpeg";
+import { ClipLoader } from "react-spinners";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Start the spinner
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/api/auth/login`,
         { email, password }
       );
+      setIsLoading(false); // Stop the spinner
       if (response.data.success) {
-        console.log(response);
         toast.success(response.data.message);
-        localStorage.setItem("token", response.data.token)
-        localStorage.setItem("userData", JSON.stringify(response.data.userData))
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem(
+          "userData",
+          JSON.stringify(response.data.userData)
+        );
         navigate("/dashboard");
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
+      setIsLoading(false); // Stop the spinner on error
       if (error.response && error.response.data) {
         toast.error(error.response.data.message || "Something went wrong!");
       } else {
@@ -38,12 +46,7 @@ function Login() {
     <main className="w-full mt-6 flex flex-col items-center justify-center px-4 pb-6">
       <div className="max-w-sm w-full text-gray-600 space-y-5">
         <div className="text-center pb-8">
-          <img
-            src={logoImg}
-            width={200}
-            className="mx-auto"
-            alt="Logo"
-          />
+          <img src={logoImg} width={200} className="mx-auto" alt="Logo" />
           <div className="mt-5">
             <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
               Log in to your account
@@ -94,11 +97,21 @@ function Login() {
           <button
             type="submit"
             className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150"
+            disabled={isLoading}
           >
-            Sign in
+            {isLoading ? (
+              <div>
+              <ClipLoader size={15} color="#fff"/>
+              </div>
+            ) : (
+              "Sign in"
+            )}
           </button>
         </form>
-        <button disabled className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 cursor-not-allowed">
+        <button
+          disabled
+          className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 cursor-not-allowed"
+        >
           <svg
             className="w-5 h-5"
             viewBox="0 0 48 48"
