@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import logoImg from "../assets/logo.jpeg";
 import { ClipLoader } from "react-spinners";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,13 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
+  const { user } = useAuth();
+  useEffect(()=>{
+    if(user){
+      navigate("/dashboard")
+    }
+  },[])
+  // console.log(user)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); 
