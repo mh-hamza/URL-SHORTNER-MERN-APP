@@ -4,33 +4,84 @@ import axios from 'axios'
 import DeviceDetector from 'node-device-detector'
 const detector = new DeviceDetector();
 
+// export const urlGenrate = async (req, res) => {
+//   try {
+//     const { originalUrl, title, customUrl } = req.body
+//     if (!title) {
+//       return res.status(401).json({ success: false, message: "Title is required" })
+//     }
+//     if (!originalUrl) {
+//       return res.status(401).json({ success: false, message: "Url is required" })
+//     }
+//     const shortUrlGenrate = nanoid(8)
+
+
+//     const newUrl = new URL({
+//       shortUrl: shortUrlGenrate,
+//       redirectUrl: originalUrl,
+//       title,
+
+//       userId: req.user.id
+//     })
+//     await newUrl.save()
+
+//     // console.log(shortUrlGenrate)
+//     return res.status(200).json({ success: true, newUrl, message: "Url Genrated Successfully" })
+//   } catch (error) {
+//     return res.status(500).json({ success: false, message: "Error in Server url controller" })
+//   }
+// }
 export const urlGenrate = async (req, res) => {
   try {
-    const { originalUrl, title, customUrl } = req.body
+    const { originalUrl, title, customUrl } = req.body;
+
+
     if (!title) {
-      return res.status(401).json({ success: false, message: "Title is required" })
+      return res.status(401).json({ success: false, message: "Title is required" });
     }
+
     if (!originalUrl) {
-      return res.status(401).json({ success: false, message: "Url is required" })
+      return res.status(401).json({ success: false, message: "URL is required" });
     }
-    const shortUrlGenrate = nanoid(8)
 
 
+    let shortUrl = nanoid(8);
+
+
+    if (customUrl) {
+      const existingCustomUrl = await URL.findOne({ customUrl });
+
+      if (existingCustomUrl) {
+        return res.status(400).json({ success: false, message: "Custom URL is already taken" });
+      }
+      shortUrl = customUrl;
+    }
+
+    // Create a new URL entry in the Mongodb
     const newUrl = new URL({
-      shortUrl: shortUrlGenrate,
-      redirectUrl: originalUrl,
+      shortUrl,
       title,
+      redirectUrl: originalUrl,
+      customUrl,
+      userId: req.user.id,
+    });
 
-      userId: req.user.id
-    })
-    await newUrl.save()
+    await newUrl.save();
 
-    // console.log(shortUrlGenrate)
-    return res.status(200).json({ success: true, newUrl, message: "Url Genrated Successfully" })
+    // Respond with success and the new URL
+    return res.status(200).json({
+      success: true,
+      newUrl,
+      message: "URL generated successfully",
+    });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Error in Server url controller" })
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Error in server URL controller",
+    });
   }
-}
+};
 export const handleDelete = async (req, res) => {
   const { id } = req.params;  // Get the URL ID from the route params
 

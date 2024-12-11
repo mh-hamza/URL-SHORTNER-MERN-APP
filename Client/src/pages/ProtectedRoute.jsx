@@ -25,7 +25,7 @@ const ProtectedRoute = () => {
 
         if (response.data.success) {
           setIsVerified(true); // Set verification as successful
-          console.log("Response from Protected"+response)
+          // console.log("Response from Protected"+response)
         } else {
           setIsVerified(false);
         }

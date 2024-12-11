@@ -27,7 +27,7 @@ const UrlContainer = ({ onUrlAdded }) => {
         }
       );
       if (response.data.success) {
-        console.log(response);
+        // console.log(response);
         toast.success(response.data.message);
         setIsPopupOpen(false);
       }

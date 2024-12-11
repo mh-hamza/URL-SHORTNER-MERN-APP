@@ -11,6 +11,7 @@ const urlSchema = new mongoose.Schema({
   },
   customUrl: {
     type: String,
+    unique: true,
   },
   redirectUrl: {
     type: String,
