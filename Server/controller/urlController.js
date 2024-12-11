@@ -68,7 +68,7 @@ export const urlGenrate = async (req, res) => {
 
     await newUrl.save();
 
-    // Respond with success and the new URL
+    // Respond success and the new URL
     return res.status(200).json({
       success: true,
       newUrl,
