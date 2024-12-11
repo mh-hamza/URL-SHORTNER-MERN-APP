@@ -9,6 +9,7 @@ import { ClipLoader } from "react-spinners";
 function Dashboard() {
   const [allUrls, setAllUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [totalClicks, setTotalClicks] = useState(0)
   const handleFetchAllUrl = async () => {
     setIsLoading(true);
     try {
@@ -30,8 +31,14 @@ function Dashboard() {
       setIsLoading(false);
       // Check if the response is successful
       if (response.data.success) {
-        console.log("Fetched URLs:", response.data.data);
+        // console.log("Fetched URLs:", response.data.data);
         setAllUrls(response.data.data);
+        // total clicks show
+        const totalClicks = response.data.data.reduce(
+          (total, url) => total + url.redirectCount,
+          0
+        );
+        setTotalClicks(totalClicks);
       } else {
         console.log("Failed to fetch URLs:", response.data.message);
       }
@@ -44,6 +51,7 @@ function Dashboard() {
   useEffect(() => {
     handleFetchAllUrl();
   }, []);
+
   const handleCopy = (link) => {
     navigator.clipboard
       .writeText(link)
@@ -92,7 +100,7 @@ function Dashboard() {
 
         <div className="flex-1 bg-green-50 rounded-lg shadow p-4 ml-2">
           <h3 className="text-lg font-semibold text-gray-700">Total Clicks</h3>
-          <p className="text-2xl font-bold text-green-600">456</p>
+          <p className="text-2xl font-bold text-green-600">{totalClicks}</p>
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto flex justify-between px-4 py-5">
