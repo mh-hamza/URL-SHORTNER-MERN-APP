@@ -121,7 +121,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="max-w-screen-xl mx-auto flex flex-col justify-between px-4 py-5">
+      <div className="max-w-screen-xl mx-auto flex flex-col justify-between px-1 md:px-4 py-5">
         {isLoading
           ? "Loading..."  
           : allUrls.map((url) => (

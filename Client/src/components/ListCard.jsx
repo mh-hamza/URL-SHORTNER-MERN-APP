@@ -64,19 +64,19 @@ const ListCard = ({
         </Link>
 
         {/* Buttons */}
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-2 md:gap-4">
           <button
             onClick={onCopy}
-            className="px-4 py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2"
+            className="md:px-4 px-2 py-1 md:py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2"
           >
-            <FaCopy />
+            <FaCopy className="text-[10px] md:text-[16px]" />
             <span className="hidden md:block">Copy</span>
           </button>
           <button
             onClick={onDelete}
-            className="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 flex items-center gap-2"
+            className="md:px-4 px-2 py-1 md:py-2 rounded-md bg-red-500 text-white hover:bg-red-600 flex items-center gap-2"
           >
-            <FaTrash />
+            <FaTrash className="text-[10px] md:text-[16px]" />
             <span className="hidden md:block">Delete</span>
           </button>
         </div>
