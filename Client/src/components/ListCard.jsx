@@ -69,14 +69,14 @@ const ListCard = ({
             onClick={onCopy}
             className="md:px-4 px-2 py-1 md:py-2 rounded-md bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2"
           >
-            <FaCopy className="text-[10px] md:text-[16px]" />
+            <FaCopy className="text-[14px] md:text-[16px]" />
             <span className="hidden md:block">Copy</span>
           </button>
           <button
             onClick={onDelete}
             className="md:px-4 px-2 py-1 md:py-2 rounded-md bg-red-500 text-white hover:bg-red-600 flex items-center gap-2"
           >
-            <FaTrash className="text-[10px] md:text-[16px]" />
+            <FaTrash className="text-[12px] md:text-[16px]" />
             <span className="hidden md:block">Delete</span>
           </button>
         </div>

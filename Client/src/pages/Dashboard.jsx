@@ -8,8 +8,11 @@ import { ClipLoader } from "react-spinners";
 
 function Dashboard() {
   const [allUrls, setAllUrls] = useState([]);
+  const [filteredUrls, setFilteredUrls] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [totalClicks, setTotalClicks] = useState(0)
+  const [totalClicks, setTotalClicks] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleFetchAllUrl = async () => {
     setIsLoading(true);
     try {
@@ -19,7 +22,7 @@ function Dashboard() {
         console.log("No token found");
         return;
       }
-     
+
       const response = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/api/url/fetchUrl`,
         {
@@ -29,11 +32,9 @@ function Dashboard() {
         }
       );
       setIsLoading(false);
-      // Check if the response is successful
       if (response.data.success) {
-        // console.log("Fetched URLs:", response.data.data);
         setAllUrls(response.data.data);
-        // total clicks show
+        setFilteredUrls(response.data.data);
         const totalClicks = response.data.data.reduce(
           (total, url) => total + url.redirectCount,
           0
@@ -51,6 +52,18 @@ function Dashboard() {
   useEffect(() => {
     handleFetchAllUrl();
   }, []);
+
+  // Handle search query updates
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    // Filter URLs based on title
+    const filtered = allUrls.filter((url) =>
+      url.title.toLowerCase().includes(query)
+    );
+    setFilteredUrls(filtered);
+  };
 
   const handleCopy = (link) => {
     navigator.clipboard
@@ -79,9 +92,11 @@ function Dashboard() {
           },
         }
       );
-
+      // Check if the response is successful
       if (response.data.success) {
         setAllUrls((prevUrls) => prevUrls.filter((url) => url._id !== id));
+        setFilteredUrls((prevUrls) => prevUrls.filter((url) => url._id !== id)); // Update filtered list
+        // console.log("Fetched URLs:", response.data.data);
         toast.success("URL deleted successfully");
       } else {
         toast.error("Failed to delete URL:", response.data.message);
@@ -90,6 +105,7 @@ function Dashboard() {
       toast.error("Error deleting URL:", error);
     }
   };
+
   return (
     <div>
       <div className="max-w-screen-xl mx-auto flex justify-between px-4 py-5">
@@ -112,8 +128,10 @@ function Dashboard() {
           <div className="max-w-screen-xl mx-auto flex items-center bg-white shadow rounded-lg">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search by title..."
               className="flex-1 p-2 text-gray-700 outline-none rounded-l-lg"
+              value={searchQuery}
+              onChange={handleSearch}
             />
             <button className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-r-lg hover:bg-blue-700 flex items-center justify-center">
               <FaSearch className="text-white text-lg" />
@@ -122,23 +140,27 @@ function Dashboard() {
         </div>
       </div>
       <div className="max-w-screen-xl mx-auto flex flex-col justify-between px-1 md:px-4 py-5">
-        {isLoading
-          ? "Loading..."  
-          : allUrls.map((url) => (
-              <ListCard
-                key={url._id}
-                title={url.title}
-                qrValue={`https://mh-shrink.netlify.app/${url.shortUrl}`}
-                link={`https://mh-shrink.netlify.app/${url.shortUrl}`}
-                originalUrl={url.redirectUrl}
-                createdAt={url.createdAt}
-                onCopy={() =>
-                  handleCopy(`https://mh-shrink.netlify.app/${url.shortUrl}`)
-                }
-                onDelete={() => handleDelete(url._id)}
-                navigateLink={`/url/${url.shortUrl}`}
-              />
-            ))}
+        {isLoading ? (
+          <div className="flex justify-center">
+            <ClipLoader color="#36d7b7" />
+          </div>
+        ) : (
+          filteredUrls.map((url) => (
+            <ListCard
+              key={url._id}
+              title={url.title}
+              qrValue={`https://mh-shrink.netlify.app/${url.shortUrl}`}
+              link={`https://mh-shrink.netlify.app/${url.shortUrl}`}
+              originalUrl={url.redirectUrl}
+              createdAt={url.createdAt}
+              onCopy={() =>
+                handleCopy(`https://mh-shrink.netlify.app/${url.shortUrl}`)
+              }
+              onDelete={() => handleDelete(url._id)}
+              navigateLink={`/url/${url.shortUrl}`}
+            />
+          ))
+        )}
       </div>
     </div>
   );
